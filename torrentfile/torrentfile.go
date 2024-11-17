@@ -6,6 +6,15 @@ import (
 	"github.com/jackpal/bencode-go"
 )
 
+type TorrentFile struct {
+	Announce    string
+	InfoHash    [20]byte
+	PieceHashes [20]byte
+	PieceLength int
+	Length      int
+	Name        string
+}
+
 type bencodeInfo struct {
 	Pieces      string `bencode:"pieces"`
 	PieceLength int    `bencode:"piece lenght"`
@@ -26,4 +35,7 @@ func Open(r io.Reader) (*bencodeTorrent, error) {
 		return nil, err
 	}
 	return &bto, nil
+}
+
+func (bto *bencodeTorrent) toTorrentFile() (TorrentFile, error) {
 }
